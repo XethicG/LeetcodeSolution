@@ -1,0 +1,33 @@
+#Given an array nums of n integers, are there elements a, b, c in nums such that a + b + c = 0? Find all unique triplets in the array which gives the sum of zero.
+
+#Solution:Sort first(O(nlogn)),then using two pointer
+
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        maxlen = len(nums)-1        
+        if maxlen<2:
+            return []
+        nums.sort()
+        res=[]
+
+        for i in range(maxlen-1) :
+            if nums[i]>0:
+                return res
+            if i>0 and (nums[i] == nums[i-1])   :
+                continue
+            min,max = i+1,maxlen
+ 
+            while min < max :
+                s=nums[i]+ nums[min]+ nums[max]
+                if s ==0:
+                    res.append([nums[i],nums[min],nums[max]])
+                    min +=1
+                    while min <max and nums[min] == nums[min-1]:
+                        min+=1
+
+                elif s >0:
+                    max -=1
+
+                else:
+                    min +=1
+        return res
